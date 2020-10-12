@@ -1,5 +1,5 @@
 import { EntityRepository, MikroORM, IDatabaseDriver } from "@mikro-orm/core";
-import { Issue } from "../entities/issue";
+import { Issue } from "./entities/issue";
 
 declare global {
   namespace Express {
