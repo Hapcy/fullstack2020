@@ -18,3 +18,27 @@ install: true
 
 # Here we override the default test script, which is: ./mvnw -B test
 script: mvn -B test  # mvn clean install would work, too
+deploy:
+  # do not change the working directory
+  skip_cleanup: true
+
+  # use Heroku
+  provider: heroku
+
+  # Read below
+  api_key:
+      secure: "BsaigBzJOQLuWth/UqVxoes3ZMXufn/4niHmFTkCpeOrZQZSMet5+/ElQyOR1hUeDowdf
+dnOUO0YnuTvGYbc5hwNkj1z3e7MPvUmvuxCR/MNcTHjwlur/7SAvATDLF9Rqwt92idQTeYndCuukUMac
+1Z98etVdHzPB0erXmWIWNy/Ms4qpRSOSRv/VXp+nsJ6YxMYaUgj5HkBaKIEpIgu/jl8emyAuQpgq70Qe
+ejIFFTpLR10+CzqViLc7W44EaAR++03Ri226uTT576CSImqJVH06nerzb8nNDo0gG5Qx/r9ERr9Ooits
+Zkq26PKTGYCtoI7iOVaz4qgjipuxeyxiI3+oHrP8boKigPe/V3ABT+PAx3rjJDIibZht551Lcvsvsl9G
+PVCrDgwDQuzAApRJGIM69PGH5kglHXp3hJr3kE7S0nU/t5wZV0RzpGAOPiG0FHZBNxcHjShxGJLe+k0q
+r8Z1ezvtDXrf7ybstyajG6cj3bab2zww55Ey/NstwdY/Jj/Q6oX46yMYkxBW6Nu0zGD8/CPx19X2Acon
+OmDb6pn2/tR9q9h5fcbOuwFUuewmR43PbWQOwi3rzAkHMuFiHE12s5sifEsyc1edK0u2qWK5NqptAkpX
+uIkA14Wu9JVZYmBzDFC3eXCOwFL5Rm0Lc6c/Yh9e1yhLMuSFaAFVRg="
+  
+  # App name on Heroku
+  app: fullstack-2020-21-1
+
+  # Deploy if there were changes on the main branch
+  on: master
