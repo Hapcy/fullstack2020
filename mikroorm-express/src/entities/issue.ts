@@ -1,5 +1,6 @@
-import { Entity, PrimaryKey, Property, Enum, Collection, ManyToMany } from '@mikro-orm/core';
+import { Entity, PrimaryKey, Property, Enum, Collection, ManyToMany, ManyToOne } from '@mikro-orm/core';
 import { Label } from './label';
+import { User } from './user';
 
 @Entity()
 export class Issue {
@@ -28,6 +29,8 @@ export class Issue {
   @ManyToMany(() => Label, 'issues', { owner: true })
   labels = new Collection<Label>(this);
 
+  @ManyToOne(() => User)
+  user!: User;
 }
 
 export enum IssueStatus {
