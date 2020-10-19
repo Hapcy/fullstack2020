@@ -1,36 +1,28 @@
-language: java
-
-# we have to override the default version 11
-jdk: openjdk8
-
-# speeding up later downloads
-cache: 
-  directories:
-    - $HOME/.m2
-
-# our Java project resides in a subfolder, so before any important script runs
-# we change to this directory
-before_install: cd issuetracker
-# In a Maven project we do not need to separately install the dependencies, 
-# because it will install it as a part of the testing process automatically,
-# so we can skip this step
-install: true
-
-# Here we override the default test script, which is: ./mvnw -B test
-script: mvn -B test  # mvn clean install would work, too
-deploy:
-  # do not change the working directory
-  skip_cleanup: true
-
-  # use Heroku
-  provider: heroku
-
-  # Read below
-  api_key:
-    secure: "kUjk1/P6Q1ouDSTl4hoXJn56gyerL0ts+1aausrt/RGAjmT8nWVgMJZX11uQ6BNXuWdau2hCj6cVqQgGIpnpJGAN8rwwG3tJ6mxaRhSEW1wV3RN3e/97QuwMlrDKmv+pZoUn5s/96Uho0nxR0UzHI38+LCM7MRRKZAJ3oJSr0P2e5LU6zjbzp/1oZbI8wJ32CKHhUGyCNXkOMvmgvFFOdRUQO47cMJ8rCeueU//Ed7v6J2JF78dfaySmoF3vtUDPdQMsXo6FUYdtQ/Ar6Rty3Why75xMbyHyd8FL1ctupS+ZNV73YKGUEgPcWTVoM2chL8vo9m/sSw703lj2MAr8yRRpszj9+C9pRZEOX/1lUB396qrwn4TOKzRC42rKr0qlHoNeLVcc0eXQIundZa/yK8Y4r8x4OLijSnrSjmFEMgFHsG/rmz12QqBDUYGR0V6akkVT2DD0PTHOgmhiAR16g0q96XwYfAfWNPYgI1eYnNTgHx99DADs/OGZXPL5AEK2McSLWRDQcs+Lj44uqyhHMjS8oxSDnylq/iIafTbLwRH1qOK4KECJewhvdv4MqkMu3D+gt8s7NGmfvlzKP/XmMlH5zCmAuVi+N8HxqALqM+TiSAQWI0J6FuWv5tpbYRwW73qcD+NvfnZ3lf09TO8mFy3MYexTP9CSDhvloxrQ4O8="
-  
-  # App name on Heroku
-  app: fullstack-2020-21-1
-
-  # Deploy if there were changes on the main branch
-  on: master
+jobs:
+  include:
+    - language: java
+      jdk: openjdk8
+      cache:
+        directories:
+          - $HOME/.m2
+      before_install: cd issuetracker
+      install: true
+      script: mvn -B test # mvn clean install would work, too
+      deploy:
+        skip_cleanup: true
+        provider: heroku
+        api_key:
+          secure: 'kUjk1/P6Q1ouDSTl4hoXJn56gyerL0ts+1aausrt/RGAjmT8nWVgMJZX11uQ6BNXuWdau2hCj6cVqQgGIpnpJGAN8rwwG3tJ6mxaRhSEW1wV3RN3e/97QuwMlrDKmv+pZoUn5s/96Uho0nxR0UzHI38+LCM7MRRKZAJ3oJSr0P2e5LU6zjbzp/1oZbI8wJ32CKHhUGyCNXkOMvmgvFFOdRUQO47cMJ8rCeueU//Ed7v6J2JF78dfaySmoF3vtUDPdQMsXo6FUYdtQ/Ar6Rty3Why75xMbyHyd8FL1ctupS+ZNV73YKGUEgPcWTVoM2chL8vo9m/sSw703lj2MAr8yRRpszj9+C9pRZEOX/1lUB396qrwn4TOKzRC42rKr0qlHoNeLVcc0eXQIundZa/yK8Y4r8x4OLijSnrSjmFEMgFHsG/rmz12QqBDUYGR0V6akkVT2DD0PTHOgmhiAR16g0q96XwYfAfWNPYgI1eYnNTgHx99DADs/OGZXPL5AEK2McSLWRDQcs+Lj44uqyhHMjS8oxSDnylq/iIafTbLwRH1qOK4KECJewhvdv4MqkMu3D+gt8s7NGmfvlzKP/XmMlH5zCmAuVi+N8HxqALqM+TiSAQWI0J6FuWv5tpbYRwW73qcD+NvfnZ3lf09TO8mFy3MYexTP9CSDhvloxrQ4O8='
+        app: fullstack-2020-21-1-java
+        on: master
+    - language: node_js
+      node_js: node
+      before_install: cd mikroorm-express
+      after_success: npm build
+      deploy:
+        skip_cleanup: true
+        provider: heroku
+        api_key:
+          secure: 'kUjk1/P6Q1ouDSTl4hoXJn56gyerL0ts+1aausrt/RGAjmT8nWVgMJZX11uQ6BNXuWdau2hCj6cVqQgGIpnpJGAN8rwwG3tJ6mxaRhSEW1wV3RN3e/97QuwMlrDKmv+pZoUn5s/96Uho0nxR0UzHI38+LCM7MRRKZAJ3oJSr0P2e5LU6zjbzp/1oZbI8wJ32CKHhUGyCNXkOMvmgvFFOdRUQO47cMJ8rCeueU//Ed7v6J2JF78dfaySmoF3vtUDPdQMsXo6FUYdtQ/Ar6Rty3Why75xMbyHyd8FL1ctupS+ZNV73YKGUEgPcWTVoM2chL8vo9m/sSw703lj2MAr8yRRpszj9+C9pRZEOX/1lUB396qrwn4TOKzRC42rKr0qlHoNeLVcc0eXQIundZa/yK8Y4r8x4OLijSnrSjmFEMgFHsG/rmz12QqBDUYGR0V6akkVT2DD0PTHOgmhiAR16g0q96XwYfAfWNPYgI1eYnNTgHx99DADs/OGZXPL5AEK2McSLWRDQcs+Lj44uqyhHMjS8oxSDnylq/iIafTbLwRH1qOK4KECJewhvdv4MqkMu3D+gt8s7NGmfvlzKP/XmMlH5zCmAuVi+N8HxqALqM+TiSAQWI0J6FuWv5tpbYRwW73qcD+NvfnZ3lf09TO8mFy3MYexTP9CSDhvloxrQ4O8='
+        app: fullstack-2020-21-1-ts
+        on: master

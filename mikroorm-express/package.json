@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.ts",
-    "start:prod": "nodemon dist/index.js",
+    "start": "nodemon dist/index.js",
+    "start:dev": "nodemon src/index.ts",
     "build": "tsc --project ./src --outDir dist",
     "test": "cross-env NODE_ENV=test jest --forceExit",
     "pretest": "cross-env NODE_ENV=test npm run create:db && cross-env NODE_ENV=test mikro-orm database:import test/seed.sql",
