@@ -1,10 +1,16 @@
-<!-- <h1>
-  {{ currentGreetingIndex }}: {{ greeting }}
-</h1> -->
-<!-- <button
-  (click)="changeGreeting()"
->Change language</button> -->
-<!-- <app-menu></app-menu> -->
-<a routerLink="menu">Menu</a>
-<a routerLink="dummy">Dummy</a>
-<router-outlet></router-outlet>
+<mat-toolbar color="primary">
+  <button mat-icon-button color="secondary" (click)="sidenav.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Issue tracker</span>
+</mat-toolbar>
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side">
+    <app-menu></app-menu>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

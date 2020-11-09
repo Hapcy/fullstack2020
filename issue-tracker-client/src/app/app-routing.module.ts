@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DummyComponent } from './dummy/dummy.component';
-import { MenuComponent } from './menu/menu.component';
+import { IssuesComponent } from './issues/issues.component';
 
 const routes: Routes = [
   {
@@ -9,12 +9,12 @@ const routes: Routes = [
     component: DummyComponent,
   },
   {
-    path: 'menu',
-    component: MenuComponent,
+    path: 'issues',
+    component: IssuesComponent,
   },
   {
     path: '**',
-    redirectTo: 'dummy',
+    redirectTo: 'issues',
   },
 ];
 

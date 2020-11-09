@@ -1,0 +1,17 @@
+<h2>Create issue</h2>
+
+<form #form="ngForm" (ngSubmit)="submit(form.value)">
+  <mat-form-field appearance="fill">
+    <mat-label>Title</mat-label>
+    <input matInput type="text" ngModel name="title" />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Description</mat-label>
+    <textarea
+      matInput
+      ngModel
+      name="description"
+    ></textarea>
+  </mat-form-field>
+  <button mat-raised-button color="primary">Create</button>
+</form>
