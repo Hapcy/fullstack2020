@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Issue } from '../core/issue';
 
 @Component({
@@ -13,8 +14,11 @@ export class IssueEditorComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  submit(form: any): void {
-    console.log(form);
+  submit(form: NgForm): void {
+    if (!form.valid) {
+      return;
+    }
+    console.log(form.value);
   }
 
 }

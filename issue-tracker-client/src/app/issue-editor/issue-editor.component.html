@@ -1,17 +1,30 @@
 <h2>Create issue</h2>
 
-<form #form="ngForm" (ngSubmit)="submit(form.value)">
+<form #form="ngForm" (ngSubmit)="submit(form)">
   <mat-form-field appearance="fill">
     <mat-label>Title</mat-label>
-    <input matInput type="text" ngModel name="title" />
+    <input
+      #title="ngModel"
+      required
+      matInput
+      type="text"
+      ngModel
+      name="title"
+    />
+    <mat-error *ngIf="title.invalid">This field is required.</mat-error>
   </mat-form-field>
   <mat-form-field appearance="fill">
     <mat-label>Description</mat-label>
     <textarea
+      #description="ngModel"
+      required
       matInput
       ngModel
       name="description"
     ></textarea>
+    <mat-error *ngIf="description.invalid">This field is required.</mat-error>
   </mat-form-field>
-  <button mat-raised-button color="primary">Create</button>
+  <div class="buttons">
+    <button mat-raised-button color="primary">Create</button>
+  </div>
 </form>
