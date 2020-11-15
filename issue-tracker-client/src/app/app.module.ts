@@ -8,6 +8,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,7 +17,8 @@ import { DummyComponent } from './dummy/dummy.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IssuesComponent } from './issues/issues.component';
 import { IssueEditorComponent } from './issue-editor/issue-editor.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { IssueComponent } from './issue/issue.component';
 
 @NgModule({
   declarations: [
@@ -24,21 +26,24 @@ import { FormsModule } from '@angular/forms';
     MenuComponent,
     DummyComponent,
     IssuesComponent,
-    IssueEditorComponent
+    IssueEditorComponent,
+    IssueComponent
   ],
   imports: [
-    BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatToolbarModule,
-    MatIconModule,
+    BrowserModule,
+    FormsModule,
     MatButtonModule,
-    MatSidenavModule,
-    MatListModule,
+    MatDialogModule,
     MatExpansionModule,
     MatFormFieldModule,
-    FormsModule,
+    MatIconModule,
     MatInputModule,
+    MatListModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

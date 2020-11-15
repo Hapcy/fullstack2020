@@ -1,16 +1,27 @@
-<h2>
-  Issues
-</h2>
+<h2>Issues</h2>
 
 <mat-accordion>
   <mat-expansion-panel hideToggle *ngFor="let issue of issues">
     <mat-expansion-panel-header>
       <mat-panel-title>
         {{ issue.title }}
+        <mat-icon>assignment</mat-icon>
       </mat-panel-title>
     </mat-expansion-panel-header>
-    <p>{{ issue.description }}</p>
+    <app-issue
+      [issue]="issue"
+      [showDetails]="false"
+      (editIssue)="startEditIssue($event)"
+    ></app-issue>
   </mat-expansion-panel>
 </mat-accordion>
 
-<app-issue-editor></app-issue-editor>
+<button
+  class="add-button"
+  mat-fab
+  color="primary"
+  aria-label="Create new issue"
+  (click)="startCreateIssue()"
+>
+  <mat-icon>add</mat-icon>
+</button>

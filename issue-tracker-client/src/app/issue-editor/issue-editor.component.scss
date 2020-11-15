@@ -3,10 +3,6 @@ form {
   flex-direction: column;
 }
 
-mat-form-field {
+mat-form-field:not(:last-of-type) {
   padding-bottom: 10px;
-}
-
-.buttons {
-  display: flex;
 }

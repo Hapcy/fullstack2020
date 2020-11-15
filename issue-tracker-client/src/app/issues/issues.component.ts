@@ -1,24 +1,37 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Issue } from '../core/issue';
+import { IssueService } from '../core/issue.service';
+import { IssueEditorComponent } from '../issue-editor/issue-editor.component';
 
 @Component({
   selector: 'app-issues',
   templateUrl: './issues.component.html',
-  styleUrls: ['./issues.component.scss']
+  styleUrls: ['./issues.component.scss'],
 })
 export class IssuesComponent implements OnInit {
 
-  issues: Issue[] = [{
-    title: 'Issue1',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut viverra imperdiet ex vitae iaculis. Donec scelerisque porta tincidunt. Morbi consequat enim ornare sapien scelerisque ultricies vel sit amet dolor. Duis vitae neque id mi blandit tincidunt suscipit eu orci. Curabitur aliquam elit justo, ut sagittis ipsum sollicitudin a. Curabitur accumsan, augue a tincidunt malesuada, nibh massa vehicula diam, quis porta metus odio vel mi.',
-  }, {
-    title: 'Issue2',
-    description: 'leiras',
-  }];
+  issues: Issue[];
 
-  constructor() { }
+  constructor(
+    private dialog: MatDialog,
+    private issuesService: IssueService,
+  ) {}
 
   ngOnInit(): void {
+    this.issues = this.issuesService.getIssues();
   }
 
+  startCreateIssue(): void {
+    this.dialog.open(IssueEditorComponent, {
+      width: '1000px',
+    });
+  }
+
+  startEditIssue(issue: Issue): void {
+    this.dialog.open(IssueEditorComponent, {
+      width: '1000px',
+      data: issue,
+    });
+  }
 }
