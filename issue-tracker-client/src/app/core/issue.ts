@@ -1,3 +1,5 @@
+import { Message } from './message';
+
 export interface Issue {
   id: number;
   title: string;
