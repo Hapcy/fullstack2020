@@ -1,41 +1,38 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Issue } from './issue';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IssueService {
+  constructor(private httpClient: HttpClient) {}
 
-  issues: Issue[] = [
-    {
-      id: 1,
-      title: 'Issue1',
-      description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut viverra imperdiet ex vitae iaculis. Donec scelerisque porta tincidunt. Morbi consequat enim ornare sapien scelerisque ultricies vel sit amet dolor. Duis vitae neque id mi blandit tincidunt suscipit eu orci. Curabitur aliquam elit justo, ut sagittis ipsum sollicitudin a. Curabitur accumsan, augue a tincidunt malesuada, nibh massa vehicula diam, quis porta metus odio vel mi.',
-      user: 'Tibi',
-      labels: [],
-      messages: [{ user: 'Admin', text: 'De nem is rossz a számítógép.' }],
-    },
-    {
-      id: 2,
-      title: 'Issue2',
-      description: 'leiras',
-      user: 'Tibi',
-      labels: [],
-    },
-  ];
-
-  constructor() { }
-
-  getIssues(): Issue[] {
-    return this.issues;
+  async getIssues(): Promise<Issue[]> {
+    const issues = await this.httpClient
+      .get<Issue[]>('/api/issues')
+      .toPromise();
+    return issues;
   }
 
-  getIssue(issueId: number): Issue {
-    return this.issues.find(issue => issue.id === issueId);
+  async getIssue(issueId: number): Promise<Issue> {
+    const issue = await this.httpClient
+      .get<Issue>(`/api/issues/${issueId}`)
+      .toPromise();
+    return issue;
   }
 
-  createIssue(issue: Issue): void {
-    this.issues.push(issue);
+  async createIssue(issue: Issue): Promise<Issue> {
+    const createdIssue = await this.httpClient
+      .post<Issue>('/api/issues', issue)
+      .toPromise();
+    return createdIssue;
+  }
+
+  async editIssue(issueId: number, issue: Issue): Promise<Issue> {
+    const modifiedIssue = this.httpClient
+      .put<Issue>(`/api/issues/${issueId}`, issue)
+      .toPromise();
+    return modifiedIssue;
   }
 }

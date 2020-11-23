@@ -15,6 +15,7 @@ export class IssueEditorComponent implements OnInit {
   form: FormGroup = this.fb.group({
     title: ['', Validators.required],
     description: ['', Validators.required],
+    place: ['', Validators.required],
   });
 
   get title(): AbstractControl {
@@ -23,6 +24,10 @@ export class IssueEditorComponent implements OnInit {
 
   get description(): AbstractControl {
     return this.form.get('description');
+  }
+
+  get place(): AbstractControl {
+    return this.form.get('place');
   }
 
   constructor(
@@ -34,6 +39,7 @@ export class IssueEditorComponent implements OnInit {
       this.form.reset({
         title: this.issue.title,
         description: this.issue.description,
+        place: this.issue.place,
       });
       this.editing = true;
     }
@@ -46,7 +52,6 @@ export class IssueEditorComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
-    console.log(this.form.value);
     this.dialogRef.close(this.form.value);
   }
 

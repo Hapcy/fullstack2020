@@ -6,14 +6,14 @@
   </div>
 </ng-container>
 
-<ng-container *ngIf="showDetails">
-  <h2>{{ issue.title }} - {{ issue.user }}</h2>
+<ng-container *ngIf="showDetails && issue">
+  <h2>{{ issue.title }} - {{ issue.user.username }}</h2>
   <h3>Description</h3>
   <p>{{ issue.description }}</p>
   <h3>Messages</h3>
   <ng-container *ngIf="issue.messages && issue.messages.length !== 0">
     <div *ngFor="let message of issue.messages">
-      <div>{{ message.user }}</div>
+      <div>{{ message.user.username }}</div>
       <p>{{ message.text }}</p>
     </div>
   </ng-container>

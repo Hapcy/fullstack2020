@@ -6,10 +6,9 @@ import { IssueService } from '../core/issue.service';
 @Component({
   selector: 'app-issue',
   templateUrl: './issue.component.html',
-  styleUrls: ['./issue.component.scss']
+  styleUrls: ['./issue.component.scss'],
 })
 export class IssueComponent implements OnInit {
-
   @Input() showDetails: boolean = true;
   @Input() issue: Issue;
 
@@ -17,18 +16,17 @@ export class IssueComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private issueService: IssueService,
-  ) { }
+    private issueService: IssueService
+  ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     if (!this.issue) {
       const issueId = parseInt(this.route.snapshot.paramMap.get('id'), 10);
-      this.issue = this.issueService.getIssue(issueId);
+      this.issue = await this.issueService.getIssue(issueId);
     }
   }
 
   edit(): void {
     this.editIssue.emit(this.issue);
   }
-
 }

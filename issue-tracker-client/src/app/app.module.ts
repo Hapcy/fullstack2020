@@ -19,6 +19,7 @@ import { IssuesComponent } from './issues/issues.component';
 import { IssueEditorComponent } from './issue-editor/issue-editor.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IssueComponent } from './issue/issue.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { IssueComponent } from './issue/issue.component';
     MatSidenavModule,
     MatToolbarModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

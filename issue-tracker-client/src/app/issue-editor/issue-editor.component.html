@@ -22,6 +22,17 @@
     ></textarea>
     <mat-error *ngIf="description.invalid">This field is required.</mat-error>
   </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Place</mat-label>
+    <input
+      required
+      matInput
+      type="text"
+      name="place"
+      formControlName="place"
+    />
+    <mat-error *ngIf="place.invalid">This field is required.</mat-error>
+  </mat-form-field>
   <div mat-dialog-actions class="buttons">
     <button mat-raised-button color="primary">Create</button>
     <button type="button" mat-raised-button color="secondary" mat-dialog-close>Close</button>
