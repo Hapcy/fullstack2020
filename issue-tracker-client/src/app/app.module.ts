@@ -13,22 +13,23 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
-import { DummyComponent } from './dummy/dummy.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IssuesComponent } from './issues/issues.component';
 import { IssueEditorComponent } from './issue-editor/issue-editor.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IssueComponent } from './issue/issue.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoginComponent } from './login/login.component';
+import { AuthInterceptor } from './core/auth.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    DummyComponent,
     IssuesComponent,
     IssueEditorComponent,
-    IssueComponent
+    IssueComponent,
+    LoginComponent
   ],
   imports: [
     AppRoutingModule,
@@ -47,7 +48,11 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
