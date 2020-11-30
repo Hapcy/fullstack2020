@@ -3,6 +3,8 @@
     <mat-icon>menu</mat-icon>
   </button>
   <span>Issue tracker</span>
+  <span class="spacer"></span>
+  <button *ngIf="isLoggedIn" mat-button (click)="logout()">Logout</button>
 </mat-toolbar>
 <mat-sidenav-container>
   <mat-sidenav #sidenav mode="side">

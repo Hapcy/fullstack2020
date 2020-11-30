@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Issue } from './issue';
+import { Message } from './message';
 
 @Injectable({
   providedIn: 'root',
@@ -34,5 +35,16 @@ export class IssueService {
       .put<Issue>(`/api/issues/${issueId}`, issue)
       .toPromise();
     return modifiedIssue;
+  }
+
+  async addMessage(issue: Issue, message: string): Promise<Message> {
+    const createdMessage = await this.httpClient
+      .post<Message>(`/api/issues/${issue.id}/messages`, { text: message })
+      .toPromise();
+    return createdMessage;
+  }
+
+  async deleteIssue(issue: Issue): Promise<void> {
+    await this.httpClient.delete(`/api/issues/${issue.id}`).toPromise();
   }
 }

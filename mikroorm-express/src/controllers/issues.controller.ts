@@ -106,7 +106,7 @@ issuesRouter
     const id = req.params.id;
     const deletedCount = await req.issuesRepository?.nativeDelete({ id });
     if (deletedCount) {
-      return res.sendStatus(200);
+      return res.sendStatus(204);
     }
     return res.sendStatus(404);
   })
@@ -128,6 +128,7 @@ issuesRouter
     newMessage.user = req.orm.em.getReference(User, req.user!.id);;
     issue.messages.add(newMessage);
     await req.issuesRepository!.persistAndFlush(issue);
+    await wrap(newMessage).init(true, ['user']);
     res.send(newMessage);
   })
   .get('/:id/messages', async (req, res) => {
