@@ -1,6 +1,7 @@
 jobs:
   include:
-    - language: java
+    - stage: test
+      language: java
       jdk: openjdk8
       cache:
         directories:
@@ -8,25 +9,12 @@ jobs:
       before_install: cd issuetracker
       install: true
       script: mvn -B test # mvn clean install would work, too
-      deploy:
-        skip_cleanup: true
-        provider: heroku
-        api_key:
-          secure: 'kUjk1/P6Q1ouDSTl4hoXJn56gyerL0ts+1aausrt/RGAjmT8nWVgMJZX11uQ6BNXuWdau2hCj6cVqQgGIpnpJGAN8rwwG3tJ6mxaRhSEW1wV3RN3e/97QuwMlrDKmv+pZoUn5s/96Uho0nxR0UzHI38+LCM7MRRKZAJ3oJSr0P2e5LU6zjbzp/1oZbI8wJ32CKHhUGyCNXkOMvmgvFFOdRUQO47cMJ8rCeueU//Ed7v6J2JF78dfaySmoF3vtUDPdQMsXo6FUYdtQ/Ar6Rty3Why75xMbyHyd8FL1ctupS+ZNV73YKGUEgPcWTVoM2chL8vo9m/sSw703lj2MAr8yRRpszj9+C9pRZEOX/1lUB396qrwn4TOKzRC42rKr0qlHoNeLVcc0eXQIundZa/yK8Y4r8x4OLijSnrSjmFEMgFHsG/rmz12QqBDUYGR0V6akkVT2DD0PTHOgmhiAR16g0q96XwYfAfWNPYgI1eYnNTgHx99DADs/OGZXPL5AEK2McSLWRDQcs+Lj44uqyhHMjS8oxSDnylq/iIafTbLwRH1qOK4KECJewhvdv4MqkMu3D+gt8s7NGmfvlzKP/XmMlH5zCmAuVi+N8HxqALqM+TiSAQWI0J6FuWv5tpbYRwW73qcD+NvfnZ3lf09TO8mFy3MYexTP9CSDhvloxrQ4O8='
-        app: fullstack-2020-21-1-java
-        on: master
-    - language: node_js
+    - stage: test
+      language: node_js
       node_js: node
       before_install: cd mikroorm-express
-      after_success: npm build
-      deploy:
-        skip_cleanup: true
-        provider: heroku
-        api_key:
-          secure: 'kUjk1/P6Q1ouDSTl4hoXJn56gyerL0ts+1aausrt/RGAjmT8nWVgMJZX11uQ6BNXuWdau2hCj6cVqQgGIpnpJGAN8rwwG3tJ6mxaRhSEW1wV3RN3e/97QuwMlrDKmv+pZoUn5s/96Uho0nxR0UzHI38+LCM7MRRKZAJ3oJSr0P2e5LU6zjbzp/1oZbI8wJ32CKHhUGyCNXkOMvmgvFFOdRUQO47cMJ8rCeueU//Ed7v6J2JF78dfaySmoF3vtUDPdQMsXo6FUYdtQ/Ar6Rty3Why75xMbyHyd8FL1ctupS+ZNV73YKGUEgPcWTVoM2chL8vo9m/sSw703lj2MAr8yRRpszj9+C9pRZEOX/1lUB396qrwn4TOKzRC42rKr0qlHoNeLVcc0eXQIundZa/yK8Y4r8x4OLijSnrSjmFEMgFHsG/rmz12QqBDUYGR0V6akkVT2DD0PTHOgmhiAR16g0q96XwYfAfWNPYgI1eYnNTgHx99DADs/OGZXPL5AEK2McSLWRDQcs+Lj44uqyhHMjS8oxSDnylq/iIafTbLwRH1qOK4KECJewhvdv4MqkMu3D+gt8s7NGmfvlzKP/XmMlH5zCmAuVi+N8HxqALqM+TiSAQWI0J6FuWv5tpbYRwW73qcD+NvfnZ3lf09TO8mFy3MYexTP9CSDhvloxrQ4O8='
-        app: fullstack-2020-21-1-ts
-        on: master
-    - language: node_js
+    - stage: test
+      language: node_js
       node_js: node
       addons:
         apt:
@@ -36,6 +24,40 @@ jobs:
             - google-chrome-stable
       before_install: cd issue-tracker-client
       script: npm run test:ci
+    - stage: deploy1
+      language: java
+      jdk: openjdk8
+      cache:
+        directories:
+          - $HOME/.m2
+      before_install: cd issuetracker
+      install: true
+      script: skip
+      deploy:
+        skip_cleanup: true
+        provider: heroku
+        api_key:
+          secure: 'kUjk1/P6Q1ouDSTl4hoXJn56gyerL0ts+1aausrt/RGAjmT8nWVgMJZX11uQ6BNXuWdau2hCj6cVqQgGIpnpJGAN8rwwG3tJ6mxaRhSEW1wV3RN3e/97QuwMlrDKmv+pZoUn5s/96Uho0nxR0UzHI38+LCM7MRRKZAJ3oJSr0P2e5LU6zjbzp/1oZbI8wJ32CKHhUGyCNXkOMvmgvFFOdRUQO47cMJ8rCeueU//Ed7v6J2JF78dfaySmoF3vtUDPdQMsXo6FUYdtQ/Ar6Rty3Why75xMbyHyd8FL1ctupS+ZNV73YKGUEgPcWTVoM2chL8vo9m/sSw703lj2MAr8yRRpszj9+C9pRZEOX/1lUB396qrwn4TOKzRC42rKr0qlHoNeLVcc0eXQIundZa/yK8Y4r8x4OLijSnrSjmFEMgFHsG/rmz12QqBDUYGR0V6akkVT2DD0PTHOgmhiAR16g0q96XwYfAfWNPYgI1eYnNTgHx99DADs/OGZXPL5AEK2McSLWRDQcs+Lj44uqyhHMjS8oxSDnylq/iIafTbLwRH1qOK4KECJewhvdv4MqkMu3D+gt8s7NGmfvlzKP/XmMlH5zCmAuVi+N8HxqALqM+TiSAQWI0J6FuWv5tpbYRwW73qcD+NvfnZ3lf09TO8mFy3MYexTP9CSDhvloxrQ4O8='
+        app: fullstack-2020-21-1-java
+        on: master
+    - stage: deploy2
+      language: node_js
+      node_js: node
+      before_install: cd mikroorm-express
+      script: skip
+      after_success: npm build
+      deploy:
+        skip_cleanup: true
+        provider: heroku
+        api_key:
+          secure: 'kUjk1/P6Q1ouDSTl4hoXJn56gyerL0ts+1aausrt/RGAjmT8nWVgMJZX11uQ6BNXuWdau2hCj6cVqQgGIpnpJGAN8rwwG3tJ6mxaRhSEW1wV3RN3e/97QuwMlrDKmv+pZoUn5s/96Uho0nxR0UzHI38+LCM7MRRKZAJ3oJSr0P2e5LU6zjbzp/1oZbI8wJ32CKHhUGyCNXkOMvmgvFFOdRUQO47cMJ8rCeueU//Ed7v6J2JF78dfaySmoF3vtUDPdQMsXo6FUYdtQ/Ar6Rty3Why75xMbyHyd8FL1ctupS+ZNV73YKGUEgPcWTVoM2chL8vo9m/sSw703lj2MAr8yRRpszj9+C9pRZEOX/1lUB396qrwn4TOKzRC42rKr0qlHoNeLVcc0eXQIundZa/yK8Y4r8x4OLijSnrSjmFEMgFHsG/rmz12QqBDUYGR0V6akkVT2DD0PTHOgmhiAR16g0q96XwYfAfWNPYgI1eYnNTgHx99DADs/OGZXPL5AEK2McSLWRDQcs+Lj44uqyhHMjS8oxSDnylq/iIafTbLwRH1qOK4KECJewhvdv4MqkMu3D+gt8s7NGmfvlzKP/XmMlH5zCmAuVi+N8HxqALqM+TiSAQWI0J6FuWv5tpbYRwW73qcD+NvfnZ3lf09TO8mFy3MYexTP9CSDhvloxrQ4O8='
+        app: fullstack-2020-21-1-ts
+        on: master
+    - stage: deploy3
+      language: node_js
+      node_js: node
+      before_install: cd issue-tracker-client
+      script: skip
       after_success: npm build
       deploy:
         skip_cleanup: true
