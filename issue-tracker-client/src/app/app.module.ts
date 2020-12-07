@@ -21,6 +21,7 @@ import { IssueComponent } from './issue/issue.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { AuthInterceptor } from './core/auth.interceptor';
+import { AuthStorageService, BrowserAuthStorageService } from './core/auth.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { AuthInterceptor } from './core/auth.interceptor';
   imports: [
     AppRoutingModule,
     BrowserAnimationsModule,
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     FormsModule,
     MatButtonModule,
     MatDialogModule,
@@ -52,6 +53,9 @@ import { AuthInterceptor } from './core/auth.interceptor';
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true,
+  }, {
+    provide: AuthStorageService,
+    useClass: BrowserAuthStorageService,
   }],
   bootstrap: [AppComponent]
 })
